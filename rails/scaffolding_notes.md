@@ -1,0 +1,1 @@
+https://guides.rubyonrails.org/v3.2.8/getting_started.html#getting-up-and-running-quickly-with-scaffolding%22%20target=%22_blank%22

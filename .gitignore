@@ -1,0 +1,5 @@
+# Ignore pdf director 
+/Readings/*
+
+# Ignore all pdf files 
+*.pdf
