@@ -62,7 +62,7 @@ Some examples of state methods:
 
 ### Stopwatch App example with custom state
 
-```javascript 
+```javascript
 const update = (model = { running: false, time: 0 }, intent) => {
   const updates = {
     'START': (model) => Object.assign(model, {running: true}),
@@ -116,3 +116,279 @@ setInterval(() => {
 
 ```
 
+---
+## Let's break it down.
+---
+
+__Update__
+
+```javascript
+// Responsible for applying intents to the application state to produce app states.
+// Initial state for model is set to default { running: false, time: 0 }
+const update = (model = { running: false, time: 0 }, intent) => {
+  const updates = {
+    'START': (model) => Object.assign(model, {running: true}),
+    'STOP': (model) => Object.assign(model, {running: false}),
+    'TICK': (model) => Object.assign(model, {time: model.time + (model.running ? 1 : 0)})
+  };
+  return (updates[intent] || (() => model))(model);
+};
+```
+
+__View__
+
+```javascript
+// Calculates how to display the current timer value
+// Has a timer value and start stop button as the UI is generated
+let view = (m) => {
+  let minutes = Math.floor(m.time / 60);
+  let seconds = m.time - (minutes * 60);
+  let secondsFormatted =  `${seconds < 10 ? '0' : ''}${seconds}`;
+  let handler = (event) => {
+    container.dispatch(m.running ? 'STOP' : 'START');
+  };
+  
+  return <div>
+    <p>{minutes}:{secondsFormatted}</p>
+    <button onClick={handler}>{m.running ? 'Stop' : 'Start'}</button>
+  </div>;
+};
+```
+
+__State Container (We'll be back to this section soon)__
+The container will initially be an empty object. Which will implement the state container.
+
+Before implementing the finished example
+
+```javascript
+let container = {};
+```
+
+Finished example
+
+```javascript
+const createStore;
+...
+let container = createStore(update);
+```
+
+So what do we need the state container to do?
+
+In the `render` function, the view needs to convert the application state to a UI.
+
+```javascript
+const render = () => {
+  ReactDOM.render(view(container.getState()),
+    document.getElementById('root')
+  );
+};
+```
+
+We need to get access to the application state, so we call `view(container.getState()` in order to do so. This should return the current application state.
+
+Now we need to be able to dispatch our intents to the container.
+
+```javascript
+setInterval(() => {
+  container.dispatch('TICK');
+}, 1000);
+```
+
+Add `container.dispatch('TICK')` in the `setInterval()` function in order to do so.
+
+Where else do we need to dispatch intents?
+
+In the view, when somebody clicks on stop/start button. Intent is dispatched here because the user intends to start or stop the timer
+
+```javascript
+let view = (m) => {
+  ...
+  let handler = (event) => {
+    container.dispatch(m.running ? 'STOP' : 'START');
+  };
+  ...
+};
+```
+
+The ternary operator essnetially works like this:
+
+If the timer __isn't__ running, then we dispatch the __start__ intent.
+If it __is__ running, then we dispatch the __stop__ intent
+
+---
+## So far...
+The application doesn't really do anything, to make it do something, we need to close the loop and make sure the UI is rendered when the model changes.
+
+How do we do that? How do we make the UI render upon model change? 
+
+With `subscribe()`
+
+Recall the `subscribe()` registers a callback to be called when the application state changes, when an intent is passed to a dispatch method.
+
+In this case, the callback function to be 'subscribed' when the model changes is the `render()` function.
+
+```javascript
+const render = () => {
+  ReactDOM.render(view(container.getState()),
+    document.getElementById('root')
+  );
+};
+container.subscribe(render);
+```
+
+Any time the application state changes, the render function is called to re-render the UI from the current model and update the DOM.
+
+Basically,
+Any time there is a change in the application state, this happens:
+
+- The render function is called
+  - The render function re-renders the UI from the current model
+    - This updates the DOM to reflect the changed state values.
+
+---
+### Back to the `container` object!
+---
+
+After the above, now we need a way to build the state container.
+
+```javascript
+let container = createStore();
+```
+
+`createStore()` hasn't been created yet but before creating it, it's important to know that in order to create that container, _it needs to apply intents to the model._
+
+Thus, the `createStore()` function is going to need the `update` function.
+
+```javascript
+let container = createStore(update);
+```
+
+After that, we can implement the `createStore()` function.
+
+```javascript
+// The argument passed to createStore is update
+// update is passed in as reducer
+const createStore = (reducer) => {
+  let internalState;
+  let handlers = [];
+  return {
+// First, it needs to return the application state container, which is an object
+    dispatch: (intent) => {
+      internalState = reducer(internalState, intent);
+      handlers.forEach(h => { h(); });
+    },
+// Expects a callback
+    subscribe: (handler) => {
+      handlers.push(handler);
+    },
+// Returns the current state
+    getState: () => internalState
+  };
+};
+```
+
+Here's what's going on:
+
+#### Dispatch
+
+- When `dispatch(intent)` is called, an intent is passed. `update()` function is called (a.k.a `reducer()`)
+  - We need to pass in the current state as well as the intent.
+
+The problem here is that we don't have the current state yet. So the function at that time would look like this
+
+```javascript
+const createStore = (reducer) => {
+  return {
+    dispatch: (intent) => {
+        reducer(???, intent);
+    },
+    subscribe: {...},
+    getState: {...}
+  ...
+  }
+}
+```
+
+The next step is to define a variable to pass in and define it
+
+```javascript
+const createStore = (reducer) => {
+  let internalState;
+  return {
+    dispatch: (intent) => {
+      internalState = reducer(internalState, intent);
+    },
+    subscribe: {...},
+    getState: {...}
+  };
+};
+```
+
+Because the `reducer` returns the new state, we need to assign that to `internalState`. So when someb ody dispatches an intent, we set the internal state to be the new state produced by the `update` function.
+
+However, doing this makes `getState()` trivial. So we can have `getState` return the `internalState` value.
+
+#### Subscribe
+
+Because `subscribe` is used to register callbacks that get invoked when the application state changes, we can push the handler into an array of handlers.
+
+First we have to initialize the array of handlers as an empty array.
+
+```javascript
+const createStore = (reducer) => {
+  let internalState;
+  let handlers = [];
+
+  return {
+    dispatch: {...},
+    subscribe: (handler) => {
+      handlers.push(handler);
+    },
+    getState: {...}
+  }
+}
+```
+
+Now that we have the collection of handlers, we go back to the `dispatch` method.
+When an intent is dispatched, after we've updated the `internalState`, we need to invoke each of these handlers (i.e. looping through each one)
+
+```javascript
+const createStore = (reducer) => {
+  let internalState;
+  let handlers = [];
+  return {
+    dispatch: (intent) => {
+      internalState = reducer(internalState, intent);
+// Looping through each handler and invoking it
+// Each handler is a function so we call the function that handler holds, thus h()
+      handlers.forEach(h => { h(); });
+    },
+    subscribe: (handler) => {
+      handlers.push(handler);
+    },
+    getState: () => internalState
+  };
+};
+```
+
+---
+
+## Wrapping Up
+
+---
+
+When the application is rendered in the DOM, we see a time and a start button.
+
+When the user clicks 'Start', the time begins ticking. That's because the `onClick` event handler is dispatching the start/stop intents.
+
+The custom state container processes through the update function, same thing happens for the ticks.
+
+The change in the model triggers the `subscribe` callback handler which re-renders the application.
+
+When we re-render, we pull the current application state from the container.
+
+---
+
+Link to codepen with example:
+
+<https://codepen.io/ThundaHorse/pen/oKpgOY>
