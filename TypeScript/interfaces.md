@@ -17,3 +17,33 @@ interface Person {
   numberOfPets: () => number;
 }
 ```
+
+When having a class that implements an interface, we can use "stubs".
+
+```typescript
+interface IEngine {
+  // Stubs
+  start(callback: (startStatus: bool, engineType: string) => void): void;
+  stop(callback: (stopStatus: bool, engineType: string) => void): void;
+}
+
+class Engine implements IEngine {
+  constructor(public horsePower: number, public engineType: string) {}
+
+  start(callback: (startStatus: bool, engineType: string) => void) {
+    window.setTimeout(() => {
+      callback(true, this.engineType);
+    }, 1000);
+  }
+  stop(callback: (stopStatus: bool, engineType: string) => void) {
+    window.setTimeout(() => {
+      callback(true, this.engineType);
+    }, 1000);
+  }
+}
+```
+
+- If there is a `private` field, need to use `get()` to get the private field, otherwise `public` will have access to it.
+  - Can use `set()` to 'set' a private field.
+
+By implementing an interface, have to guarantee that the class using has those stubs. Javascript itself doesn't support interfaces.
