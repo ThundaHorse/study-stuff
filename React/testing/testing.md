@@ -80,13 +80,44 @@ export function * handleFetchQuestion({question_id}) {
 }
 
 // app > __mocks__
-const id = 42
+let __value = 1;
+const isomorphicFetch = jest.fn(() => value)
+isomorphicFetch.__setValue = v => __value = v;
+export default isomorphicFetch
 
 // spec
-describe("", () => {
-  it("", () => {
-
+describe("Fetch questions saga", () => {
+  it("should fetch the questions", async () => {
+    const gen = handleFetchQuestion({question_id: 1});
+    const { value } = await gen.next();
+    expect(value).toEqual([{question_id: 1}])
   })
 })
 
+```
+
+If the test was run without the `app > __mocks__` portion, there would be an error of `unhandled promise rejection`.
+
+In `app > __mocks__`, `isomorphicFetch` is set to a `jest.fn()`. By itself, it's a dummy function that spies on the real function. It doesnt return anything normally.
+
+However, in this case, we can pass in a function that doesn't take in an argument and have it return value. `__setValue` is used to set the value to v (or whatever will be passed in eventually).
+
+Updated spec:
+
+```javascript
+describe("Fetch questions saga", () => {
+  // Runs before all tests and sets the dummy data
+  beforeAll(() => {
+    fetch.__setValue([{ question_id: 1 }]);
+  });
+
+  it("should fetch the questions", async () => {
+    const gen = handleFetchQuestion({ question_id: 1 });
+    const { value } = await gen.next();
+    expect(value).toEqual([{ question_id: 1 }]);
+
+    // fetch sets the value before all tests, if this was a real API, it would be the URL.
+    expect(fetch).toHaveBeenCalledWith(`/api/questions/1`);
+  });
+});
 ```
