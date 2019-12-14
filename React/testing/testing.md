@@ -121,3 +121,16 @@ describe("Fetch questions saga", () => {
   });
 });
 ```
+
+---
+
+## Auto vs Manual Mocking
+
+- In some setups, any require statement will have mocks generated automatically.
+- If a manual mock file exists, it will be used as the mock instead of the automatic version.
+
+| Manual                                                                                                                  | Automatic                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Manual mocks exist as a separate file alongside the file being mocked                                                   | Methods returning a specific and complex value often can't be mocked automatically |
+| Once in the right place, they will be used automatically for NPM modules. This isn't the case for local modules however | Methods that are not part of the module at compile-time won't be mocked            |
+| If the API's package changes, the manual mock must also be updated                                                      | Modules that were not intended to be mocked may be mocked                          |
