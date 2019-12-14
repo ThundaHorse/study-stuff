@@ -23,19 +23,17 @@ These tests do roughly the same thing, just show different formatting for async 
 ```javascript
 // Done callback
 it("async test 1", done => {
-  setTimeOut(done, 100)
-})
+  setTimeOut(done, 100);
+});
 
-// Returning a promise 
+// Returning a promise
 it("async test 2", () => {
-  return new Promise (
-    resolve => setTimeout(resolve, 100)
-  )
-})
+  return new Promise(resolve => setTimeout(resolve, 100));
+});
 
 // Passing an async function
 // Delay is a method that returns a promise
-it("async test 3", async () => await delay(100))
+it("async test 3", async () => await delay(100));
 ```
 
 ---
@@ -63,3 +61,32 @@ Mock functions are also known as spies, have no side-effects, and counts functio
 ## Creating Mock Files
 
 Appropriately named NPM mocks are loaded automatically, however the must reside in a `__mocks__` folder next to mocked module. NPM modules and local modules can both be mocked.
+
+- Usually at top level of the app, next to `node_modules`
+
+What happens is that if there is a file in the `__mocks__` folder that is adjacent to npm modules has the exact same name as the npm module, it will be loaded instead of the whole npm module.
+
+For example, if testing something that fetched data, it could be set up like this:
+
+```javascript
+// testFn.js
+...
+export function * handleFetchQuestion({question_id}) {
+  const raw = yield fetch(`/api/question/${question_id}`);
+  const json = yield.raw.json();
+  const question = json.items[0];
+
+  yield put({type: `FETCHED_Q`, question})
+}
+
+// app > __mocks__
+const id = 42
+
+// spec
+describe("", () => {
+  it("", () => {
+
+  })
+})
+
+```
