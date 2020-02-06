@@ -1,0 +1,205 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CSS Study Guide</title>
+
+    <style>
+      .header {
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+      }
+      .heading {
+        text-align: center;
+      }
+      .container {
+        margin-left: 2%;
+        margin-right: 2%;
+      }
+      .row {
+        display: flex;
+      }
+      .col {
+        float: left;
+        width: 50%;
+      }
+      .box-model-list {
+        opacity: 0.8;
+        background-color: lightgray;
+        border-radius: 5px;
+        padding-top: 5px;
+        padding-bottom: 2px;
+        margin: 0 auto;
+      }
+      .box-model-list:hover {
+        opacity: 1;
+      }
+      .box-model-item {
+        position: relative;
+      }
+      .description {
+        position: relative;
+        margin-left: 3%;
+        margin-right: 3%;
+      }
+      .box-model-list-right {
+        background-color: lightblue;
+        opacity: 0.8;
+        border-radius: 5px;
+        padding-top: 5px;
+        padding-bottom: 2px;
+        margin: 0 auto;
+      }
+      .box-model-list-right:hover {
+        opacity: 1;
+        background-color: lightskyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header"><h1 class="heading">CSS Study Guide</h1></div>
+    <hr />
+    <h2 class="question">CSS 'Box Model' and its layout components</h2>
+    <p>
+      CSS box model is a rectangualr layout paradigm for HTML elements that
+      consist of:
+    </p>
+    <div class="container">
+      <div class="row-1">
+        <div class="col">
+          I'm aligned left
+          <ul class="box-model-list">
+            <li class="box-model-item">
+              Content
+              <p class="description">
+                Content of the box, where text and images appear
+              </p>
+            </li>
+            <li class="box-model-item">
+              Padding
+              <p class="description">
+                Transparent area surrounding the content (space between border
+                and content)
+              </p>
+            </li>
+            <li class="box-model-item">
+              Border
+              <p class="description">
+                Border surrounding the padding(if there is) and the content
+              </p>
+            </li>
+            <li class="box-model-item">
+              Margin
+              <p class="description">
+                Transparent area surrounding the border (space between border
+                and neighbording elements)
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          I'm aligned right
+          <ul class="box-model-list-right">
+            <li class="box-model-item">
+              Content
+              <p class="description">
+                Content of the box, where text and images appear
+              </p>
+            </li>
+            <li class="box-model-item">
+              Padding
+              <p class="description">
+                Transparent area surrounding the content (space between border
+                and content)
+              </p>
+            </li>
+            <li class="box-model-item">
+              Border
+              <p class="description">
+                Border surrounding the padding(if there is) and the content
+              </p>
+            </li>
+            <li class="box-model-item">
+              Margin
+              <p class="description">
+                Transparent area surrounding the border (space between border
+                and neighbording elements)
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2 class="question">What is Sass?</h2>
+      <div class="row-1">
+        <p>
+          Sass or <b>Syntatically Awesome StyleSheets</b> is a CSS preprocessor
+          that adds elegance and power.
+        </p>
+        <p>
+          It allows use of variables, nested rules, mixins, inline imports, and
+          more.
+        </p>
+      </div>
+      <hr />
+      <h2 class="question">What is a Grid system in CSS?</h2>
+      <div class="row-1">
+        <p>
+          Grid system is a structure that allows for content to be stacked both
+          vertically and horizontally in consistent and easily mangable fashion.
+        </p>
+        <p>Is comprised of 2 key components: <b>rows</b> and <b>columns</b>.</p>
+        <ul>
+          Examples of Grid Systems:
+          <li>Simple Grid</li>
+          <li>Bootstrap</li>
+          <li>Pure</li>
+          <li>Foundation</li>
+        </ul>
+      </div>
+      <div class="row-1">
+        <h2 class="question">Explain meta tags in HTML</h2>
+        <ul>
+          <li>Meta tags <b>ALWAYS</b> go inside the head tag</li>
+          <li>Always passed as a name/value pair</li>
+          <li>Are not displayed on the page but intended for browser</li>
+          <li>
+            Can contain information about character encoding, description, title
+            of the document
+          </li>
+        </ul>
+      </div>
+      <div class="row-1">
+        <h2 class="question">
+          Difference between
+          <code style="background-color: lightblue;">span</code> and
+          <code style="background-color: lightblue;">div</code>?
+        </h2>
+        <ul>
+          <li>
+            <code style="background-color: lightblue;">div</code> is a
+            <b>block</b> element
+          </li>
+          <li>
+            <code style="background-color: lightblue;">span</code> is a
+            <b>inline</b> element
+          </li>
+          <p>
+            It’s illegal to place a block element inside an inline element, and
+            that while <code style="background-color: lightblue;">div</code> can
+            have a <code style="background-color: lightblue;">p</code> tag, and
+            a <code style="background-color: lightblue;">p</code> tag can have a
+            <code style="background-color: lightblue;">span</code>, it is not
+            possible for
+            <code style="background-color: lightblue;">span</code> to have a
+            <code style="background-color: lightblue;">div</code> or
+            <code style="background-color: lightblue;">p</code> tag inside
+          </p>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

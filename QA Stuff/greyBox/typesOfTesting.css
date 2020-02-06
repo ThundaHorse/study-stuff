@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #04123f;
+  font-family: Poppins;
+}
+
+hr {
+  background-color: whitesmoke;
+  width: 70%;
+}

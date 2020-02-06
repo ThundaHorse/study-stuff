@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: Poppins;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  background-color: rgb(48, 48, 48);
+}
+.card {
+  max-width: 50rem;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+  box-shadow: 4px 2px 3px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 4px 2px 3px 2px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+}
+.card:hover {
+  opacity: 1;
+}

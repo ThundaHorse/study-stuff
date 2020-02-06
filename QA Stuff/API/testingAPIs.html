@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Testing APIs</title>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="testingAPIs.css" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <div id="intro" class="jumbotron bg-dark">
+        <h1 class="display-4">What is API Testing?</h1>
+        <hr class="my-4" />
+        <ul class="lead">
+          <li>
+            It's a type of testing that performs verifications at an API level.
+          </li>
+          <li>
+            It's part of Integration testing that determines whether the API(s)
+            meet the expectations of functionality, reliability, performance,
+            and security.
+          </li>
+          <li>
+            It differs from UI testing in that it is performed at the
+            <b>message layer</b> without a GUI (Graphical User Interface).
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-intro">
+        <img
+          src="output-onlinepngtools.png"
+          style="width: 70%; padding-top: 20px; margin: 0 auto; float: none; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;"
+          alt="testing-graph"
+        />
+        <p style="text-align: center;">
+          API Tests test the API, not the UI
+        </p>
+
+        <h1>10 Basics for API Testing</h1>
+      </div>
+      <br />
+
+      <div class="container mx-auto mb-4">
+        <div
+          id="carouselControls"
+          class="carousel slide"
+          data-ride="false"
+          data-keyboard="true"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>
+                    API testing flow is quite simple with three main steps:
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>Send the request with necessary input data.</li>
+                    <li>Get the response having output data.</li>
+                    <li>Verify that the response returned is as expected</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Understand the API Requirements</h3>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>What is the API's purpose?</li>
+                    <li>
+                      What is the workflow of the app; where does the API fit
+                      into that flow?
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>
+                    API testing flow is quite simple with three main steps:
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <ul>
+                    <li>Send the request with necessary input data.</li>
+                    <li>Get the response having output data.</li>
+                    <li>Verify that the response returned is as expected</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Specify the API output status</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    All API response status codes are separated into 5
+                    categories. First digit defines the class of the response,
+                    last two don't have a class or categorization.
+                  </p>
+                  <p>
+                    Verifying if the response code equals to 200 or not to
+                    decide whether an API testing is passed or failed is
+                    familiar to new API testers. This is not a wrong
+                    verification. However, it does not reflect all test
+                    scenarios of the API.
+                  </p>
+                  <ul>
+                    <li>
+                      1XX (informational): Request is received and continues to
+                      be processed
+                    </li>
+                    <li>
+                      2XX (Successful): Request is successfully received,
+                      understood, and accepted
+                    </li>
+                    <li>
+                      3XX (Redirect): Further action needs to be taken to
+                      complete the request
+                    </li>
+                    <li>
+                      4XX (Client Error): Request contains wrong syntax or can't
+                      be fulfilled
+                    </li>
+                    <li>
+                      5XX (Server Error): Server fails to fulfill a request
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Organize API endpoints</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    A testing project may have a few or even hundreds of APIs
+                    for testing. We highly suggest that you organize them into
+                    categories for better test management. It takes one extra
+                    step but will significantly help you create test scenarios
+                    with high coverage and integration.
+                  </p>
+                  <p>
+                    Organizing your tests with the same structures will make
+                    your test reusable and extendable with integration flow.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Leverage automation for API testing</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Leverage automation capability for your API testing as much
+                    and as early as possible as well as choose a suitable
+                    automation tool.
+                  </p>
+                  <ul>
+                    <li>
+                      Test data and execution history can be saved along with
+                      API endpoints. This makes it easier to rerun tests later.
+                    </li>
+                    <li>
+                      API tests are stable and changed with care. An API
+                      reflects a business rule of the system. Any change in the
+                      API needs an explicit requirement; so testers can always
+                      stay alert of any changes and adjust them on time.
+                    </li>
+                    <li>
+                      Test execution is much faster compared to Web UI test API
+                      testing is considered as black-box testing in which the
+                      users send input and get output for verification.
+                      Automation with a data-driven approach — i.e. applying
+                      different datasets in the same test scenario — can help
+                      increase API test coverage.
+                    </li>
+                    <li>
+                      Data input and output follows some specific templates or
+                      models so that you can create test scripts only once.
+                      These test scripts can also be reused throughout the
+                      entire testing project.
+                    </li>
+                    <li>
+                      API tests can be performed at the early stage of the
+                      software development lifecycle. An automation approach
+                      with mocking techniques can help verify API and its
+                      integration before the actual API is developed. Hence, the
+                      level of dependency within the team is reduced.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Choose suitable verification methods</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    The response body content is what an API returns with the
+                    given input. An API response content varies from data types
+                    to sizes. The responses can be in plain text, a JSON data
+                    structure, an XML document, and more. They can be a simple
+                    few-word string (even empty), or a hundred-page JSON/XML
+                    file.
+                  </p>
+                  <p>
+                    <strong>
+                      It is essential to choose a suitable verification method
+                      for a given API.
+                    </strong>
+                  </p>
+                  <p>
+                    Generally, there are some basic methods to verify an API
+                    response body content:
+                  </p>
+                  <ul>
+                    <li>
+                      Compare the whole response body content with the expected
+                      information.
+                    </li>
+                    <li>Compare each attribute value of the response.</li>
+                    <li>Compare matching with regex.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Create Positive and Negative tests</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    API testing requires both positive and negative tests to
+                    ensure that the API is working correctly. Since API testing
+                    is considered a type of black-box testing, both types of
+                    testings are driven by input and output data.
+                  </p>
+                  <div class="row">
+                    <div class="col text-center">
+                      <h3>Positive</h3>
+                      <ul style="text-align: left;">
+                        <li>
+                          Verify that the API receives input and returns the
+                          expected output as specified in the requirement.
+                        </li>
+                        <li>
+                          Verify that the response status code is returned as
+                          specified in the requirement, whether it returns a 2xx
+                          or error code.
+                        </li>
+                        <li>
+                          Specify input with minimum required fields and with
+                          maximum fields.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col text-center">
+                      <h3>Negative</h3>
+                      <ul style="text-align: left;">
+                        <li>
+                          Verify that the API returns an appropriate response
+                          when the expected output does not exist.
+                        </li>
+                        <li>Perform input validation test.</li>
+                        <li>
+                          Verify the API’s behaviors with different levels of
+                          authorization.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card mb-4 text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h3>Live Testing Process</h3>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Scheduling API tests every day while testing process is live
+                    is recommended.
+                  </p>
+                  <p>
+                    API test execution is fast, stable, and small enough, it is
+                    easy to add more tests into the current testing process with
+                    minimum risks. This is only possible with automated API
+                    testing tools that come with features like:
+                  </p>
+                  <ul>
+                    <li>Test scheduling with built-in test commands</li>
+                    <li>
+                      Integration with test management tools and defect tracking
+                      tools.
+                    </li>
+                    <li>
+                      CI (continuous integration) with various leading CI tools
+                    </li>
+                    <li>Visual log reports generation.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselControls"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselControls"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="container mx-auto mb-4" id="testing-tips">
+        <h1>Different types of HTTP requests</h1>
+        <hr class="my-4" />
+        <div
+          id="carouselControls2"
+          class="carousel slide"
+          data-ride="false"
+          data-keyboard="true"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="card text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h1>GET</h1>
+                </div>
+                <div class="card-body">
+                  <h3>
+                    GET is used to request data from a specified resource and is
+                    the most common HTTP method.
+                  </h3>
+                </div>
+              </div>             
+            </div>
+            <div class="carousel-item">
+              <div class="card text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h1>POST</h1>
+                </div>
+                <div class="card-body">
+                  <h3>
+                    POST is a very common HTTP method. It is used to send data to
+                    a server to create/update a resource. The data sent to the
+                    server with POST is stored in the request body of the HTTP
+                    request.
+                  </h3>
+                </div>
+              </div>              
+            </div>
+            <div class="carousel-item">
+              <div class="card text-white bg-dark">
+                <div class="card-header text-white bg-secondary">
+                  <h1>PATCH</h1>
+                </div>
+                <div class="card-body">
+                  <h3>
+                    A relatively new method, used make partial modifications to a
+                    resource.
+                  </h3>
+                  <h3>
+                    PATCH method is not idempotent, meaning successive identical
+                    patch requests may have different effects.
+                  </h3>
+                </div>
+              </div>        
+            </div>
+            <div class="carousel-item">
+              <div class="card text-white bg-dark text-white bg-secondary">
+                <div class="card-header text-white bg-secondary">
+                  <h1>PUT</h1>
+                </div>
+                <div class="card-body">
+                  <h3>
+                    PUT is used to send data to a server to create/update a
+                    resource. The difference between POST and PUT is that PUT
+                    requests are idempotent.
+                  </h3>
+                  <h3>
+                    That is, calling the same PUT request multiple times will
+                    always produce the same result. In contrast, calling a POST
+                    request repeatedly have side effects of creating the same
+                    resource multiple times.
+                  </h3>
+                </div>
+              </div>           
+            </div>
+            <div class="carousel-item">
+              <div class="card text-white bg-dark bg-secondary">
+                <div class="card-header text-white bg-secondary">
+                  <h1>DELETE</h1>
+                </div>
+                <div class="card-body">
+                  <h3>
+                    The DELETE method removes all current representations of the
+                    target resource given by a URI.
+                  </h3>
+                </div>      
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselControls2"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselControls2"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
